@@ -1,0 +1,827 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Salud Mental Infantil — Proyecto Escolar</title>
+  <meta name="description" content="Recursos, actividades y ayuda para la salud mental de niños (5-10 años).">
+
+  <!-- ======= STYLES ======= -->
+  <style>
+    :root{
+      --bg:#E8F7F7;
+      --primary:#5FAFAF;
+      --accent:#2F7F80;
+      --muted:#A5DCD3;
+      --card:#ffffff;
+      --text:#0b3b3b;
+      --round:14px;
+      --soft: 0 8px 24px rgba(15,60,60,0.08);
+      --glass: rgba(255,255,255,0.6);
+      --child1: #FFD47F;
+      --child2: #FFB6C1;
+      --child3: #9AD3BC;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,var(--bg),#F2FFF6 60%);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+    }
+
+    /* HEADER */
+    header{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+      padding:18px;
+      background: linear-gradient(90deg,var(--primary),var(--accent));
+      color:white;
+      border-bottom-left-radius:20px;
+      border-bottom-right-radius:20px;
+      box-shadow: 0 6px 24px rgba(47,127,128,0.14);
+      position:sticky;
+      top:0;
+      z-index:20;
+    }
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:700;
+      font-size:1.2rem;
+    }
+    .logo img{width:56px;height:56px;border-radius:12px;object-fit:cover;border:3px solid rgba(255,255,255,0.18)}
+    header .right { display:flex; gap:10px; align-items:center; }
+
+    .search-box{ position:relative; }
+    .search-box input{
+      padding:10px 36px 10px 12px;
+      border-radius:999px;
+      border:2px solid rgba(255,255,255,0.18);
+      outline:none;
+      font-size:0.95rem;
+      background: rgba(255,255,255,0.12);
+      color:white;
+      width:220px;
+      transition:width .22s ease;
+    }
+    .search-box input:focus{ width:300px; background:rgba(255,255,255,0.18) }
+    .search-box button{
+      position:absolute; right:6px; top:50%; transform:translateY(-50%);
+      border:none; background:transparent; color:white; font-size:1rem; cursor:pointer;
+    }
+
+    /* NAV */
+    nav{
+      display:flex;
+      gap:8px;
+      justify-content:center;
+      padding:12px;
+      margin-top:12px;
+      background:transparent;
+    }
+    nav a{
+      text-decoration:none;
+      color:var(--accent);
+      background:var(--card);
+      padding:10px 14px;
+      border-radius:999px;
+      font-weight:600;
+      box-shadow:var(--soft);
+      border:1px solid rgba(15,60,60,0.03);
+    }
+    nav a.active{ background:linear-gradient(90deg,var(--muted),var(--primary)); color:white; transform:translateY(-2px) }
+
+    /* MAIN LAYOUT */
+    main{
+      max-width:1100px;
+      margin:22px auto;
+      padding:12px;
+      display:grid;
+      grid-template-columns: 1fr 340px;
+      gap:18px;
+      align-items:start;
+    }
+
+    /* LEFT: content */
+    .content{
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+    section.card{
+      background:var(--card);
+      border-radius:var(--round);
+      padding:18px;
+      box-shadow:var(--soft);
+      border:1px solid rgba(10,40,40,0.03);
+    }
+    .hero{
+      display:flex;
+      gap:18px;
+      align-items:center;
+    }
+    .hero .text h1{ font-size:1.6rem; margin-bottom:6px }
+    .hero .text p{ margin:0; color: #044; opacity:.8 }
+    .hero img{ width:160px; height:120px; border-radius:12px; object-fit:cover; border:6px solid #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.05) }
+
+    h2{ color:var(--accent); margin-bottom:8px }
+    h3{ color:var(--primary); margin-bottom:6px }
+
+    .grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .small{ font-size:0.94rem; color:#1d4f4f }
+
+    /* TOPICS list */
+    .topics{ display:flex; flex-direction:column; gap:12px }
+    .topic{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      padding:10px;
+      border-radius:12px;
+      background:linear-gradient(180deg,#FCFFFE,#F7FFF9);
+      border:1px dashed rgba(95,175,175,0.09);
+    }
+    .topic .icon{
+      width:54px;height:54px;border-radius:12px;background:var(--child3);display:flex;align-items:center;justify-content:center;font-weight:700;color:#063; font-size:20px;
+    }
+    .topic .body{flex:1}
+    .topic p{ margin:0; color:#0b3b3b }
+    .topic .actions{ margin-top:8px; display:flex; gap:8px; }
+
+    /* SIDEBAR */
+    aside.sidebar{
+      position:relative;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .card.small-card{ padding:12px }
+    .quick-links{ display:flex; flex-direction:column; gap:8px;
+      padding:4px;
+    }
+    .quick-links button{
+      padding:10px; border-radius:10px; border:none; background:linear-gradient(90deg,var(--child1),#ffe1a8); cursor:pointer; font-weight:700;
+      box-shadow: 0 6px 18px rgba(255,165,70,0.08)
+    }
+
+    .resource{
+      display:flex; gap:10px; align-items:center;
+    }
+
+    /* FOOTER */
+    footer{ margin-top:14px;text-align:center;color:#075; opacity:.9; padding:8px }
+
+    /* TRIMESTRES / collapsible */
+    .collapsible{ cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:10px; padding:8px; border-radius:10px; border:1px solid rgba(5,60,60,0.06) }
+    .collapsible .chev { transform:rotate(0); transition: transform .18s }
+    .collapsible.open .chev { transform:rotate(180deg) }
+
+    /* LECTURAS ocultas */
+    .read-more { display:none; margin-top:10px; padding:12px; border-radius:8px; background:linear-gradient(180deg,#ffffff,#fbfffc); border:1px solid rgba(100,180,170,0.06) }
+
+    /* ACTIVITIES cards */
+    .activity{ display:flex; gap:10px; align-items:flex-start; padding:10px; border-radius:12px; background:linear-gradient(90deg,#fff,#fcfffb); border-left:6px solid var(--child2) }
+
+    /* FORM */
+    form input, form textarea { border:1px solid rgba(10,40,40,0.06); border-radius:8px; padding:8px; background:transparent }
+    form button{ width:auto; padding:10px 14px; border-radius:10px; }
+
+    /* CHAT widget (WhatsApp-like bubbles) */
+    .chat-toggle-btn{
+      position:fixed;
+      right:20px;
+      bottom:20px;
+      width:56px;
+      height:56px;
+      border-radius:50%;
+      border:none;
+      background:linear-gradient(135deg,var(--accent),var(--primary));
+      color:white;
+      box-shadow:0 10px 30px rgba(47,127,128,0.2);
+      cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      z-index:999;
+      font-weight:800;
+    }
+
+    .chat-panel{
+      position:fixed;
+      right:20px;
+      bottom:90px;
+      width:360px;
+      max-height:72vh;
+      border-radius:16px;
+      overflow:hidden;
+      box-shadow:0 18px 50px rgba(0,0,0,0.18);
+      display:flex;
+      flex-direction:column;
+      z-index:999;
+      transform:translateY(8px);
+      transition:transform .18s ease, opacity .18s;
+      opacity:1;
+      background:linear-gradient(180deg,#fff,#fbfffe);
+    }
+    .chat-panel.hidden{ opacity:0; pointer-events:none; transform:translateY(20px) }
+
+    .chat-head{
+      display:flex;align-items:center;gap:10px;padding:12px;background:linear-gradient(90deg,var(--primary),var(--accent));color:white;
+    }
+    .chat-head img{width:40px;height:40px;border-radius:12px}
+    .chat-body{ padding:12px; overflow:auto; flex:1; background:linear-gradient(180deg,#F6FFFE,#F9FFFB) }
+    .bubble{ max-width:78%; padding:10px 12px; margin:6px 0; border-radius:12px; line-height:1.2; }
+    .bubble.user{ margin-left:auto; background:linear-gradient(90deg,var(--accent),#1e6a6a); color:white; border-bottom-right-radius:4px }
+    .bubble.bot{ background:#EFFFFB; color:#004B4B; border-bottom-left-radius:4px }
+
+    .chat-footer{ display:flex; gap:8px; padding:10px; border-top:1px solid rgba(0,0,0,0.04); background:#fff }
+    .chat-footer input{ flex:1; padding:10px; border-radius:999px; border:1px solid rgba(10,40,40,0.06) }
+    .quick-actions{ display:flex; gap:6px; margin-top:8px; flex-wrap:wrap }
+    .qa-btn{ background:var(--muted); color:#044; padding:6px 8px; border-radius:8px; font-weight:700; border:none; cursor:pointer; }
+
+    /* responsive */
+    @media (max-width:1000px){
+      main{ grid-template-columns: 1fr; padding:12px }
+      aside.sidebar{ order:2 }
+    }
+
+    /* small animations */
+    .fade-in{ animation:fadeIn .33s ease both }
+    @keyframes fadeIn { from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none} }
+
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo" aria-hidden="false">
+      <img src="https://i.postimg.cc/cCsfbbn4/ninos.jpg" alt="niños sonriendo"/>
+      <div>
+        <div style="font-size:1rem">Salud Mental</div>
+        <div style="font-size:0.82rem;opacity:.9">Niños 5-10 años — Quevedo</div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="search-box" role="search">
+        <input id="searchInput" placeholder="Buscar tema (ej. ansiedad)" aria-label="Buscar temas"/>
+        <button title="Buscar" onclick="searchTopics()">🔎</button>
+      </div>
+
+      <!-- CHAT TOGGLE -->
+      <button class="chat-toggle-btn" id="openChatBtn" aria-label="Abrir chat">💬</button>
+    </div>
+  </header>
+
+  <!-- NAV -->
+  <nav id="mainNav" aria-label="Navegación principal">
+    <a href="#" class="active" onclick="navTo('inicio', event)">Inicio</a>
+    <a href="#" onclick="navTo('temas', event)">Temas</a>
+    <a href="#" onclick="navTo('actividades', event)">Actividades</a>
+    <a href="#" onclick="navTo('padres', event)">Guía para padres</a>
+    <a href="#" onclick="navTo('contacto', event)">Contacto</a>
+  </nav>
+
+  <!-- MAIN -->
+  <main>
+    <!-- CONTENT COLUMN -->
+    <div class="content">
+
+      <!-- HERO -->
+      <section id="inicio" class="card fade-in" role="region" aria-labelledby="h-hero">
+        <div class="hero">
+          <div class="text">
+            <h1 id="h-hero">Bienvenidos — Salud Mental Infantil</h1>
+            <p class="small">Información, actividades y recursos para apoyar el bienestar emocional de niños entre 5 y 10 años.</p>
+          </div>
+          <img src="https://i.postimg.cc/Vk8BrggD/1.jpg" alt="niños jugando" />
+        </div>
+
+        <div style="margin-top:12px" class="grid-2">
+          <div>
+            <h3>Qué ofrecemos</h3>
+            <ul>
+              <li>Guías y señales de alerta para padres y docentes</li>
+              <li>Actividades prácticas y juegos emocionales</li>
+              <li>Contenido accesible para niños y familias</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Mensaje rápido</h3>
+            <p class="small">Si notas cambios persistentes en el ánimo, el sueño o el rendimiento escolar, conversa con un profesional. Este sitio ayuda y orienta, pero no sustituye diagnóstico médico.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- TOPICS / THEMES -->
+      <section id="temas" class="card fade-in" role="region" aria-labelledby="h-temas">
+        <h2 id="h-temas">Temas clave sobre salud mental</h2>
+        <div class="topics">
+
+          <div class="topic" aria-hidden="false">
+            <div class="icon">😊</div>
+            <div class="body">
+              <strong>Emociones y expresión</strong>
+              <p>Cómo ayudar al niño a identificar y expresar sus emociones de forma segura.</p>
+              <div class="actions">
+                <button onclick="toggleRead('e-emociones')" class="qa-btn">Leer</button>
+                <button onclick="scrollToActivity('respiracion')" class="qa-btn">Ir a actividad</button>
+              </div>
+              <div id="e-emociones" class="read-more">
+                <p><strong>Identificar emociones:</strong> usa juegos, dibujos y preguntas abiertas: "¿qué sientes?"</p>
+                <textarea placeholder="Añade tu comentario..."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="topic">
+            <div class="icon">😰</div>
+            <div class="body">
+              <strong>Ansiedad y miedos</strong>
+              <p>Señales comunes y técnicas de calma sencillas para niños.</p>
+              <div class="actions">
+                <button onclick="toggleRead('e-ansiedad')" class="qa-btn">Leer</button>
+                <button onclick="openChatQuick('ansiedad')" class="qa-btn">Preguntar al chat</button>
+              </div>
+              <div id="e-ansiedad" class="read-more">
+                <p>Si un niño muestra cambios en sueño, apetito, irritabilidad o evita situaciones, puede necesitar apoyo. Técnicas: respiración "globo", botella de la calma, rutinas.</p>
+                <textarea placeholder="¿Qué te pareció?"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="topic">
+            <div class="icon">🤝</div>
+            <div class="body">
+              <strong>Habilidades sociales</strong>
+              <p>Cómo enseñar turnos, empatía y resolución de conflictos con juegos.</p>
+              <div class="actions">
+                <button onclick="toggleRead('e-sociales')" class="qa-btn">Leer</button>
+                <button onclick="scrollToActivity('amistad')" class="qa-btn">Actividad</button>
+              </div>
+              <div id="e-sociales" class="read-more">
+                <p>Actividades: "detectives de la amistad", juegos por parejas y teatro de roles para practicar disculpas y acuerdos.</p>
+                <textarea placeholder="Ideas para agregar..."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="topic">
+            <div class="icon">🏫</div>
+            <div class="body">
+              <strong>Bullying y convivencia escolar</strong>
+              <p>Prevención, señales y cómo acompañar al niño que sufre acoso.</p>
+              <div class="actions">
+                <button onclick="toggleRead('e-bully')" class="qa-btn">Leer</button>
+                <button onclick="openChatQuick('bullying')" class="qa-btn">Consejos</button>
+              </div>
+              <div id="e-bully" class="read-more">
+                <p>Hablar con el niño, escuchar sin juzgar, documentar incidentes y coordinar con la escuela son pasos iniciales.</p>
+                <textarea placeholder="¿Has visto situaciones así?"></textarea>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ACTIVIDADES -->
+      <section id="actividades" class="card fade-in" role="region" aria-labelledby="h-act">
+        <h2 id="h-act">Actividades prácticas y dinámicas</h2>
+        <div class="activity" id="respiracion">
+          <div style="font-size:22px">🎈</div>
+          <div>
+            <strong>Respiración "El Globo"</strong>
+            <p class="small">Manos en la barriga, inhalar contando 1-2-3, exhalar despacio 1-2-3. Repetir 5 veces.</p>
+            <div style="margin-top:8px">
+              <button class="qa-btn" onclick="startDemo('respira')">Probar ahora</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity" id="botella">
+          <div style="font-size:22px">🧴</div>
+          <div>
+            <strong>Botella de la calma</strong>
+            <p class="small">Una botella con agua y brillantina: mover y observar cómo baja la brillantina ayuda a calmarse.</p>
+          </div>
+        </div>
+
+        <div class="activity" id="amistad">
+          <div style="font-size:22px">🤗</div>
+          <div>
+            <strong>Juego: Detectives de la amistad</strong>
+            <p class="small">Busca un compañero que comparta algo, que te haga reír y que quiera jugar contigo.</p>
+          </div>
+        </div>
+
+        <div style="margin-top:12px">
+          <h3>Más actividades</h3>
+          <ul>
+            <li>Diario "Yo puedo": escribir o dibujar 1 cosa buena del día.</li>
+            <li>Caja de la calma: objetos que reconforten (pelota antiestrés, dibujos, fotos).</li>
+            <li>Role play para practicar decir "no" con respeto.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- GUIA PADRES -->
+      <section id="padres" class="card fade-in" role="region" aria-labelledby="h-padres">
+        <h2 id="h-padres">Guía práctica para padres y docentes</h2>
+
+        <div class="grid-2">
+          <div>
+            <h3>Señales de alerta</h3>
+            <ul>
+              <li>Cambios bruscos en sueño o apetito</li>
+              <li>Aislamiento social o pérdida de interés</li>
+              <li>Irritabilidad persistente o rabietas intensas</li>
+              <li>Bajo rendimiento escolar o problemas de atención</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Qué hacer primero</h3>
+            <ol>
+              <li>Escuchar con calma y validar lo que siente.</li>
+              <li>Crear rutinas claras (sueño, comidas, estudio).</li>
+              <li>Consultar con el docente y, si es necesario, con un profesional.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div style="margin-top:12px">
+          <h3>Recursos rápidos</h3>
+          <div class="grid-2">
+            <div class="small-card card">
+              <strong>Profesionales</strong>
+              <p class="small">Psicólogos infantiles, pediatras del desarrollo.</p>
+            </div>
+            <div class="small-card card">
+              <strong>Actividades en casa</strong>
+              <p class="small">Rutinas, juego en familia, tiempo sin pantallas antes de dormir.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MÁS TEMAS (expandible) -->
+      <section class="card fade-in" id="more-topics">
+        <h2>Temas adicionales</h2>
+        <div class="collapsible" onclick="toggleColl(this)">
+          <div><strong>Rutinas, sueño y alimentación</strong><div class="small">Por qué importan</div></div>
+          <div class="chev">▾</div>
+        </div>
+        <div class="read-more">
+          <p>Un horario regular de sueño y comidas mejora el ánimo y la concentración. Evitar pantallas 1 hora antes de acostarse ayuda a dormir mejor.</p>
+        </div>
+
+        <div class="collapsible" onclick="toggleColl(this)" style="margin-top:8px">
+          <div><strong>Resiliencia</strong><div class="small">Cómo fomentar capacidad de recuperación</div></div>
+          <div class="chev">▾</div>
+        </div>
+        <div class="read-more">
+          <p>Enseñar a ver errores como oportunidades, elogiar el esfuerzo y apoyar la solución de problemas fortalece la resiliencia.</p>
+        </div>
+
+        <div class="collapsible" onclick="toggleColl(this)" style="margin-top:8px">
+          <div><strong>Tecnología y pantallas</strong><div class="small">Límites saludables</div></div>
+          <div class="chev">▾</div>
+        </div>
+        <div class="read-more">
+          <p>Establece límites claros y momentos sin pantallas (comidas, antes de dormir). Usa contenido supervisado y comparte actividades en familia.</p>
+        </div>
+      </section>
+
+      <!-- CONTACTO -->
+      <section id="contacto" class="card fade-in" role="region" aria-labelledby="h-contact">
+        <h2 id="h-contact">Contacto y envío de sugerencias</h2>
+        <p class="small">¿Tienes dudas o quieres aportar materiales? Escríbenos.</p>
+
+        <form id="contactForm" action="https://formspree.io/f/xovkawqp" method="POST" onsubmit="return handleContact(event)">
+          <input name="nombre" placeholder="Tu nombre (opcional)"/>
+          <input name="correo" type="email" placeholder="Tu correo"/>
+          <textarea name="mensaje" placeholder="Tu mensaje..." rows="4"></textarea>
+          <div style="display:flex; gap:8px; align-items:center">
+            <button type="submit">Enviar</button>
+            <div id="formSuccess" style="display:none;color:green;font-weight:700">Enviado ✅</div>
+          </div>
+        </form>
+      </section>
+
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="card small-card fade-in">
+        <strong>En caso de emergencia</strong>
+        <p class="small">Si hay riesgo para la seguridad del niño (lastimarse o lastimar a otros) busca ayuda inmediata con servicios locales de emergencia o salud.</p>
+      </div>
+
+      <div class="card small-card fade-in">
+        <strong>Enlaces rápidos</strong>
+        <div class="quick-links">
+          <button onclick="navTo('actividades')">Actividades para hoy</button>
+          <button onclick="navTo('padres')">Guía para padres</button>
+          <button onclick="openChat()">Preguntar al asistente</button>
+        </div>
+      </div>
+
+      <div class="card small-card fade-in">
+        <strong>Recursos descargables</strong>
+        <p class="small">Plantillas: semáforo emocional, diario "Yo puedo", lista de rutinas. (Puedes personalizarlas e imprimir).</p>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <button onclick="alert('Función demo: descargar plantilla')">Descargar</button>
+          <button onclick="alert('Función demo: imprimir')">Imprimir</button>
+        </div>
+      </div>
+
+    </aside>
+  </main>
+
+  <!-- CHAT WIDGET (WhatsApp-like) -->
+  <div id="chatPanel" class="chat-panel hidden" role="dialog" aria-label="Asistente de apoyo">
+    <div class="chat-head">
+      <img src="https://i.postimg.cc/cCsfbbn4/ninos.jpg" alt="Asistente"/>
+      <div>
+        <div style="font-weight:800">Asistente de apoyo</div>
+        <div style="font-size:12px;opacity:.9">Respuestas automáticas — no sustituye a un profesional</div>
+      </div>
+      <div style="margin-left:auto">
+        <button onclick="closeChat()" style="background:transparent;border:none;color:white;font-size:18px">✕</button>
+      </div>
+    </div>
+
+    <div id="chatBody" class="chat-body" aria-live="polite"></div>
+
+    <div style="padding:8px 12px">
+      <div class="quick-actions" aria-hidden="false">
+        <button class="qa-btn" onclick="openChatQuick('hola')">Hola</button>
+        <button class="qa-btn" onclick="openChatQuick('ansiedad')">Ansiedad</button>
+        <button class="qa-btn" onclick="openChatQuick('tdah')">TDAH</button>
+        <button class="qa-btn" onclick="openChatQuick('autismo')">Autismo</button>
+      </div>
+    </div>
+
+    <div class="chat-footer">
+      <input id="chatInput" placeholder="Escribe aquí (ej. '¿qué hago si...')"/>
+      <button onclick="sendChat()" aria-label="Enviar">Enviar</button>
+    </div>
+  </div>
+
+  <button id="chatToggle" class="chat-toggle-btn" title="Abrir chat">💬</button>
+
+  <footer>
+    © 2025 — Proyecto Escolar | Salud mental de los niños — Hecho con ❤️
+  </footer>
+
+  <!-- ======= SCRIPTS ======= -->
+  <script>
+    /* ---------- NAVIGATION ---------- */
+    function navTo(id, ev){
+      if (ev) ev.preventDefault();
+      // hide all main sections (cards are top-level but we use ids)
+      const sections = ['inicio','temas','actividades','padres','contacto'];
+      sections.forEach(s=>{
+        const el = document.getElementById(s);
+        if (el) el.style.display = (s===id) ? 'block' : 'none';
+      });
+      // highlight nav links
+      document.querySelectorAll('nav a').forEach(a=> a.classList.remove('active'));
+      const link = Array.from(document.querySelectorAll('nav a')).find(a=> a.getAttribute('onclick')?.includes(id));
+      if (link) link.classList.add('active');
+      // scroll top for main
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+    // default show only inicio
+    navTo('inicio');
+
+    /* ---------- SEARCH ---------- */
+    function searchTopics(){
+      const q = document.getElementById('searchInput').value.trim().toLowerCase();
+      if (!q) { alert('Escribe algo para buscar'); return; }
+      // if matches keywords, go to theme or chat
+      const map = {
+        'ansiedad':'temas', 'miedo':'temas', 'tdah':'temas', 'autismo':'temas',
+        'actividad':'actividades', 'juego':'actividades', 'padres':'padres',
+        'contacto':'contacto', 'bullying':'temas', 'sueño':'more-topics'
+      };
+      for (const k in map){
+        if (q.includes(k)){
+          navTo(map[k]);
+          // try to open relevant read-more if exists
+          setTimeout(()=>{
+            if (k==='ansiedad') toggleRead('e-ansiedad');
+            if (k==='emocion' || q.includes('emocion')) toggleRead('e-emociones');
+          },350);
+          return;
+        }
+      }
+      // default: open chat
+      openChat();
+      addChat('bot','No encontré una sección exacta. ¿Quieres que te ayude con "'+q+'"?');
+    }
+
+    /* ---------- COLLAPSIBLES ---------- */
+    function toggleColl(el){
+      el.classList.toggle('open');
+      const next = el.nextElementSibling;
+      if (!next) return;
+      next.style.display = (next.style.display==='block') ? 'none' : 'block';
+    }
+
+    /* ---------- READ MORE toggles ---------- */
+    function toggleRead(id){
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.style.display = (el.style.display==='block') ? 'none' : 'block';
+      // open visual
+      if (el.style.display==='block') el.scrollIntoView({behavior:'smooth', block:'center'});
+    }
+
+    /* ---------- Activities helpers ---------- */
+    function scrollToActivity(id){
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({behavior:'smooth', block:'center'});
+    }
+
+    function startDemo(which){
+      if (which==='respira'){
+        // small guided breathing demo via chat bubble-like
+        openChat();
+        addChat('bot','Vamos a respirar juntos: inhala contando 1…2…3, mantén 1… y exhala 1…2…3. Repite 5 veces.');
+      }
+    }
+
+    /* ---------- CONTACT FORM ---------- */
+    async function handleContact(e){
+      e.preventDefault();
+      const form = document.getElementById('contactForm');
+      const data = new FormData(form);
+      try {
+        const res = await fetch(form.action, { method: form.method, body: data, headers:{'Accept':'application/json'}});
+        if (res.ok || res.status===0){
+          document.getElementById('formSuccess').style.display='block';
+          form.reset();
+          setTimeout(()=> document.getElementById('formSuccess').style.display='none',4000);
+        } else {
+          alert('Ocurrió un error al enviar. Intenta de nuevo.');
+        }
+      } catch(err){
+        // fallback for local testing
+        document.getElementById('formSuccess').style.display='block';
+        form.reset();
+        setTimeout(()=> document.getElementById('formSuccess').style.display='none',4000);
+      }
+      return false;
+    }
+
+    /* ---------- CHAT logic (local-only assistant) ---------- */
+    const chatToggle = document.getElementById('chatToggle') || document.getElementById('openChatBtn');
+    const panel = document.getElementById('chatPanel');
+    const chatBody = document.getElementById('chatBody');
+    const chatInput = document.getElementById('chatInput');
+
+    // storage key
+    const KEY = 'sm_infantil_chat_v2';
+
+    // open/close
+    function openChat(){
+      panel.classList.remove('hidden');
+      chatToggle.style.display='none';
+      renderChat();
+      setTimeout(()=> chatInput.focus(),150);
+    }
+    function closeChat(){
+      panel.classList.add('hidden');
+      chatToggle.style.display='flex';
+    }
+    // bind toggle
+    chatToggle.addEventListener('click', openChat);
+    document.getElementById('openChatBtn').addEventListener('click', openChat);
+
+    // load/save
+    function loadChat(){
+      const raw = localStorage.getItem(KEY);
+      if (!raw) return [];
+      try { return JSON.parse(raw); } catch { return [] }
+    }
+    function saveChat(arr){
+      localStorage.setItem(KEY, JSON.stringify(arr));
+    }
+
+    // add chat
+    function addChat(role, text, save=true){
+      const hist = loadChat();
+      hist.push({role, text, t: Date.now()});
+      if (save) saveChat(hist);
+      renderChat();
+    }
+
+    function renderChat(){
+      const hist = loadChat();
+      chatBody.innerHTML='';
+      hist.forEach(m=>{
+        const d = document.createElement('div');
+        d.className = 'bubble ' + (m.role==='user' ? 'user' : 'bot');
+        d.innerHTML = escapeHtml(m.text);
+        chatBody.appendChild(d);
+      });
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    // escape HTML
+    function escapeHtml(t){ return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') }
+
+    // send from input
+    function sendChat(){
+      const text = chatInput.value.trim();
+      if (!text) return;
+      addChat('user', text);
+      chatInput.value='';
+      // simulate reply
+      setTimeout(()=> {
+        const reply = generateReply(text);
+        addChat('bot', reply);
+      }, 600 + Math.random()*700);
+    }
+
+    // quick actions
+    function openChatQuick(topic){
+      openChat();
+      // pre-fill and auto-send
+      setTimeout(()=> {
+        addChat('user', topic);
+        setTimeout(()=> addChat('bot', generateReply(topic)), 500);
+      },300);
+    }
+
+    // generate canned replies (safer, non-medical)
+    function generateReply(input){
+      const t = input.toLowerCase();
+      if (t.includes('hola') || t.includes('buenas')) return "¡Hola! Soy un asistente informativo. Puedo darte actividades, señales de alerta y recursos. ¿Qué necesitas: 'ansiedad', 'tdah', 'autismo', 'actividades'?";
+      if (t.includes('ansiedad')) return "La ansiedad en niños puede manifestarse con nervios, lloros o dificultad para dormir. Técnicas: respiración 4-4-4, botella de la calma, rutinas. ¿Quieres una actividad paso a paso?";
+      if (t.includes('tdah') || t.includes('atencion')) return "El TDAH afecta atención e impulsividad. Rutinas, apoyos en la escuela y evaluación profesional son útiles. ¿Quieres estrategias para casa o la escuela?";
+      if (t.includes('autismo') || t.includes('tea')) return "El TEA es un espectro amplio. La detección temprana y las terapias educativas marcan gran diferencia. ¿Deseas señales tempranas o actividades de apoyo?";
+      if (t.includes('bully') || t.includes('bullying')) return "Si hay acoso, escucha al niño, registra incidentes y contacta con la escuela. No lo minimices; acompaña y busca redes de apoyo.";
+      if (t.includes('emergencia') || t.includes('suicid') || t.includes('lastim')) return "Si existe riesgo inmediato, contacta servicios de emergencia locales ahora. Este chat no puede manejar crisis reales.";
+      // fallback
+      return "Gracias por preguntar. Puedo sugerir actividades, lecturas o pasos para hablar con un profesional. Escribe 'actividades' o el tema que te interesa (ej: 'ansiedad').";
+    }
+
+    // allow enter to send
+    chatInput.addEventListener('keydown', function(e){ if (e.key==='Enter') sendChat(); });
+
+    // initialize with welcome if empty
+    (function initChat(){
+      const h = loadChat();
+      if (!h || h.length===0){
+        addChat('bot', 'Hola 👋. Soy un asistente de apoyo informativo. No sustituyo a un profesional. Escribe una palabra (ej. ansiedad, tdah, actividades).');
+      } else {
+        renderChat();
+      }
+      // panel hidden by default
+      closeChat();
+    })();
+
+    /* ---------- small helpers ---------- */
+    function openChatFromSearch(){
+      openChat();
+      addChat('bot','¿Te ayudo con esto?');
+    }
+
+    // small util for chat open button inside page
+    function openChatInline(){
+      openChat();
+    }
+
+    // small UI: close read-more on outside click
+    document.addEventListener('click', function(e){
+      const rm = document.querySelectorAll('.read-more');
+      rm.forEach(r=> {
+        if (!r.contains(e.target) && !r.previousElementSibling?.contains(e.target) && r.style.display==='block') {
+          // keep open if clicking toggle
+        }
+      });
+    });
+
+    // accessibility: focusable nav via keyboard
+    document.querySelectorAll('nav a').forEach(a=>{
+      a.addEventListener('keydown', (e)=>{
+        if (e.key==='Enter') a.click();
+      })
+    });
+
+  </script>
+</body>
+</html>
+
+
